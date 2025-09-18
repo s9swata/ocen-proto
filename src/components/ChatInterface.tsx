@@ -56,7 +56,7 @@ export default function ChatInterface({
 
     try {
       // Initialize the model
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
       // Create context about Argo floats for better responses
       const context = `You are an AI assistant specializing in oceanography and Argo float data. 
