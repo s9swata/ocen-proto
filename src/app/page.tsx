@@ -1,47 +1,46 @@
-"use client"
-import ChatInterface from '@/components/ChatInterface';
-import map from "../../public/map.png"
-
-
-import ArgoVisualizer from '@/components/argo';
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
+import ChatInterface from "@/components/ChatInterface";
+import InteractiveArgoMap from "@/components/InteractiveArgoMap";
 
 export default function Home() {
+  const [isChatVisible, setIsChatVisible] = useState(true);
 
-  const [openFloat, setOpenFloat] = useState<number | null>(null);
-  const [closed, setClosed] = useState<{ [id: number]: boolean }>({});
-  // Float positions for demo
-  const floats = [
-    { id: 1, style: "absolute top-[40%] left-[40%] w-5 h-auto hover:cursor-pointer" },
-    { id: 2, style: "absolute top-[45%] left-[54%] w-5 h-auto hover:cursor-pointer" },
-    { id: 3, style: "absolute top-[55%] left-[56%] w-5 h-auto hover:cursor-pointer" },
-    { id: 4, style: "absolute top-[65%] left-[46%] w-5 h-auto hover:cursor-pointer" },
-  ];
   return (
     <div className="h-screen bg-gray-900 text-white relative">
-      {/* Main content area */}
+      {/* Main content area - Interactive Map */}
       <div className="w-full h-full bg-gray-900">
-        <img src={map.src} alt="Map" className="w-full h-full object-cover" />
-        {floats.map(f => (
-          <div key={f.id} className={f.style}>
-            <img
-              src="https://incois.gov.in/OON/OON-Logos-images/Final/mooredbuoys.png"
-              className="w-5 h-auto hover:cursor-pointer"
-              onClick={() => {
-                setOpenFloat(f.id);
-                setClosed(prev => ({ ...prev, [f.id]: false }));
-              }}
-              alt={`Float ${f.id}`}
-            />
-            {openFloat === f.id && !closed[f.id] && (
-              <div className="relative z-50 mt-2">
-                <ArgoVisualizer closed={closed[f.id]} onClose={() => setClosed(prev => ({ ...prev, [f.id]: true }))} />
-              </div>
-            )}
-          </div>
-        ))}
+        <InteractiveArgoMap />
       </div>
-      <ChatInterface />
+      
+      {/* Chat Interface */}
+      <ChatInterface 
+        isVisible={isChatVisible} 
+        onClose={() => setIsChatVisible(false)} 
+      />
+      
+      {/* Chat Toggle Button (when closed) */}
+      {!isChatVisible && (
+        <button
+          type="button"
+          onClick={() => setIsChatVisible(true)}
+          className="fixed bottom-4 right-4 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-colors duration-200 z-50"
+          aria-label="Open chat"
+        >
+          <svg 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
+          </svg>
+        </button>
+      )}
     </div>
   );
 }
