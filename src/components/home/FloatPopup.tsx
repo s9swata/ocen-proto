@@ -1,6 +1,7 @@
 "use client";
 
 import { CalendarIcon, MapPinIcon, User2Icon, WifiIcon, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -22,6 +23,8 @@ export default function FloatPopup({
   onShowProfile,
   visible,
 }: InlineFloatPopupProps) {
+  const router = useRouter();
+
   if (!data || !position || !visible) {
     return null;
   }
@@ -43,6 +46,8 @@ export default function FloatPopup({
   const handleActionClick = (action: string) => {
     if (action === "Profile" && onShowProfile) {
       onShowProfile();
+    } else if (action === "Trajectory") {
+      router.push(`/trajectory/${data.floatNumber}`);
     } else {
       console.log(`Action clicked: ${action} for float ${data.floatNumber}`);
       alert(`${action} for Float ${data.floatNumber} - Feature coming soon!`);
