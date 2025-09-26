@@ -2,6 +2,7 @@
 import { useState } from "react";
 import ChatInterface from "@/components/ChatInterface";
 import InteractiveArgoMap from "@/components/home/InteractiveArgoMap";
+import Chat from "@/components/Chat";
 
 export default function Home() {
   const [isChatVisible, setIsChatVisible] = useState(true);
@@ -14,10 +15,7 @@ export default function Home() {
       </div>
 
       {/* Chat Interface */}
-      <ChatInterface
-        isVisible={isChatVisible}
-        onClose={() => setIsChatVisible(false)}
-      />
+      {isChatVisible && <Chat onClose={() => setIsChatVisible(false)} />}
 
       {/* Chat Toggle Button (when closed) */}
       {!isChatVisible && (
