@@ -40,13 +40,14 @@ export default function Starfield({ isVisible }: StarfieldProps) {
   return (
     <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
       {/* Deep space background gradient */}
-      <div 
+      <div
         className="absolute inset-0"
         style={{
-          background: 'radial-gradient(ellipse at center, #0f0f23 0%, #000000 70%, #000000 100%)'
+          background:
+            "radial-gradient(ellipse at center, #0f0f23 0%, #000000 70%, #000000 100%)",
         }}
       />
-      
+
       {/* Stars */}
       {stars.map((star) => (
         <div
@@ -66,37 +67,40 @@ export default function Starfield({ isVisible }: StarfieldProps) {
       ))}
 
       {/* Subtle nebula effects */}
-      <div 
+      <div
         className="absolute opacity-20"
         style={{
-          top: '20%',
-          left: '10%',
-          width: '300px',
-          height: '200px',
-          background: 'radial-gradient(ellipse, rgba(147, 51, 234, 0.3) 0%, transparent 70%)',
-          filter: 'blur(60px)',
+          top: "20%",
+          left: "10%",
+          width: "300px",
+          height: "200px",
+          background:
+            "radial-gradient(ellipse, rgba(147, 51, 234, 0.3) 0%, transparent 70%)",
+          filter: "blur(60px)",
         }}
       />
-      <div 
+      <div
         className="absolute opacity-15"
         style={{
-          top: '60%',
-          right: '15%',
-          width: '250px',
-          height: '150px',
-          background: 'radial-gradient(ellipse, rgba(59, 130, 246, 0.3) 0%, transparent 70%)',
-          filter: 'blur(50px)',
+          top: "60%",
+          right: "15%",
+          width: "250px",
+          height: "150px",
+          background:
+            "radial-gradient(ellipse, rgba(59, 130, 246, 0.3) 0%, transparent 70%)",
+          filter: "blur(50px)",
         }}
       />
-      <div 
+      <div
         className="absolute opacity-10"
         style={{
-          bottom: '30%',
-          left: '30%',
-          width: '200px',
-          height: '200px',
-          background: 'radial-gradient(ellipse, rgba(236, 72, 153, 0.3) 0%, transparent 70%)',
-          filter: 'blur(70px)',
+          bottom: "30%",
+          left: "30%",
+          width: "200px",
+          height: "200px",
+          background:
+            "radial-gradient(ellipse, rgba(236, 72, 153, 0.3) 0%, transparent 70%)",
+          filter: "blur(70px)",
         }}
       />
     </div>
