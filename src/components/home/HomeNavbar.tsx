@@ -194,8 +194,9 @@ export function HomeNavbar({ onOpenChat }: Navbar2Props) {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link href="/" legacyBehavior passHref>
-                  <NavigationMenuLink
+                <NavigationMenuLink asChild>
+                  <Link
+                    href="/"
                     className={cn(
                       navigationMenuTriggerStyle(),
                       "h-10 flex items-center gap-2",
@@ -203,13 +204,14 @@ export function HomeNavbar({ onOpenChat }: Navbar2Props) {
                   >
                     <MapPin className="h-4 w-4" />
                     <span className="pb-2">Live Floats</span>
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link href="/research" legacyBehavior passHref>
-                  <NavigationMenuLink
+                <NavigationMenuLink asChild>
+                  <Link
+                    href="/research"
                     className={cn(
                       navigationMenuTriggerStyle(),
                       "h-10 flex items-center gap-2",
@@ -217,13 +219,14 @@ export function HomeNavbar({ onOpenChat }: Navbar2Props) {
                   >
                     <Users className="h-4 w-4" />
                     <span className="pb-2">Research</span>
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link href="/documentation" legacyBehavior passHref>
-                  <NavigationMenuLink
+                <NavigationMenuLink asChild>
+                  <Link
+                    href="/documentation"
                     className={cn(
                       navigationMenuTriggerStyle(),
                       "h-10 flex items-center gap-2",
@@ -231,8 +234,8 @@ export function HomeNavbar({ onOpenChat }: Navbar2Props) {
                   >
                     <FileText className="h-4 w-4" />
                     <span className="pb-2">Documentation</span>
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
