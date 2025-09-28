@@ -103,10 +103,10 @@ export function HomeSidebar({ className, onFiltersChange }: HomeSidebarProps) {
           <div className="space-y-4 px-4">
             {/* Time Period Filter */}
             <SidebarGroup>
-              <SidebarGroupLabel className="flex items-center gap-2">
+              {/* <SidebarGroupLabel className="flex items-center gap-2">
                 <FaCalendarAlt className="h-3.5 w-3.5" />
                 Temporal Range
-              </SidebarGroupLabel>
+              </SidebarGroupLabel> */}
               <SidebarGroupContent>
                 <TimePeriodSelector
                   value={filters.timePeriod}

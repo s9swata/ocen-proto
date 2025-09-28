@@ -9,10 +9,8 @@ import {
   RefreshCw,
   ThumbsDown,
   ThumbsUp,
-  Waves,
   X,
 } from "lucide-react";
-import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -24,8 +22,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Suggestion } from "@/components/ui/shadcn-io/ai/suggestion";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface ChatProps {
@@ -40,6 +38,24 @@ export default function Chat({ onClose }: ChatProps) {
   const { messages, sendMessage } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatCardRef = useRef<HTMLDivElement>(null);
+
+  // Argo-specific suggestion prompts
+  const argoSuggestions = [
+    "Analyze temperature profiles in the Pacific",
+    "Show salinity trends for this region",
+    "What do recent measurements indicate?",
+    "Compare oxygen levels across depths",
+    "Explain the thermohaline circulation",
+    "Show me density variations over time",
+  ];
+
+  // Handle suggestion click
+  const handleSuggestionClick = (suggestion: string) => {
+    setIsWaitingForResponse(true);
+    sendMessage({ text: suggestion }).then(() => {
+      setIsWaitingForResponse(false);
+    });
+  };
 
   // Auto-scroll to bottom when new messages come in
   useEffect(() => {
@@ -114,24 +130,23 @@ export default function Chat({ onClose }: ChatProps) {
         >
           <ScrollArea className="h-full p-4">
             {messages.length === 0 && !isWaitingForResponse ? (
-              <div className="h-full justify-center flex flex-col text-center text-muted-foreground">
-                <div className="mx-auto mb-4 p-3 rounded-full">
-                  <BotMessageSquare
-                    size={32}
-                    className="text-blue-600 dark:text-blue-400"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold mb-2 text-foreground">
-                  Argo Data Assistant
-                </h3>
-                <p className="mb-4 text-muted-foreground">
-                  Ask me anything about oceanographic data, Argo floats, or
-                  marine research insights.
-                </p>
-                <div className="text-sm text-muted-foreground space-y-1">
-                  <p>• "Analyze temperature profiles in the Pacific"</p>
-                  <p>• "Show salinity trends for this region"</p>
-                  <p>• "What do recent measurements indicate?"</p>
+              <div className="h-full flex flex-col justify-center items-center text-center space-y-6 py-8">
+                <div className="flex flex-col items-center space-y-4">
+                  <div className="p-4 rounded-full bg-blue-100 dark:bg-blue-900">
+                    <BotMessageSquare
+                      size={48}
+                      className="text-blue-600 dark:text-blue-400"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-semibold text-foreground">
+                      Argo Data Assistant
+                    </h3>
+                    <p className="text-muted-foreground max-w-md">
+                      Ask me anything about oceanographic data, Argo floats, or
+                      marine research insights.
+                    </p>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -354,7 +369,28 @@ export default function Chat({ onClose }: ChatProps) {
           </ScrollArea>
         </CardContent>
 
-        <CardFooter className="relative z-10">
+        <CardFooter className="relative z-10 flex flex-col space-y-4">
+          {/* Suggestions - show when no messages */}
+          {messages.length === 0 && !isWaitingForResponse && (
+            <div className="w-full">
+              <p className="text-sm text-muted-foreground mb-3 text-center">
+                Try these suggestions to get started:
+              </p>
+              <div className="grid grid-cols-1 gap-2">
+                {argoSuggestions.map((suggestion) => (
+                  <Suggestion
+                    key={suggestion}
+                    suggestion={suggestion}
+                    onClick={handleSuggestionClick}
+                    variant="outline"
+                    size="sm"
+                    className="w-full justify-start text-left"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
           <form
             onSubmit={async (e) => {
               e.preventDefault();
@@ -372,7 +408,7 @@ export default function Chat({ onClose }: ChatProps) {
                 <textarea
                   className="h-full w-full  resize-none focus:outline-none focus:outline-0 placeholder-muted-foreground bg-transparent"
                   value={input}
-                  placeholder="Ask anything"
+                  placeholder="Ask about ocean data, temperature profiles, salinity trends..."
                   onChange={(e) => setInput(e.currentTarget.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
