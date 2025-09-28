@@ -41,11 +41,10 @@ export default function Chat({ onClose }: ChatProps) {
 
   // Argo-specific suggestion prompts
   const argoSuggestions = [
-    "Analyze temperature profiles in the Pacific",
+    "Analyze temperature profiles near Maldives",
     "Show salinity trends for this region",
     "What do recent measurements indicate?",
     "Compare oxygen levels across depths",
-    "Explain the thermohaline circulation",
     "Show me density variations over time",
   ];
 
@@ -408,7 +407,7 @@ export default function Chat({ onClose }: ChatProps) {
                 <textarea
                   className="h-full w-full  resize-none focus:outline-none focus:outline-0 placeholder-muted-foreground bg-transparent"
                   value={input}
-                  placeholder="Ask about ocean data, temperature profiles, salinity trends..."
+                  placeholder="Ask anything about Argo data..."
                   onChange={(e) => setInput(e.currentTarget.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
